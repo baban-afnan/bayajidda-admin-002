@@ -1,5 +1,5 @@
 <x-app-layout>
-      <title>Safana Digital - Services Management</title>
+      <title>Bayajidda Global - Services Management</title>
 
     <div class="content">
         <!-- Page Header -->
@@ -373,11 +373,11 @@
 
         <style>
             :root {
-                --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-                --success-gradient: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
-                --info-gradient: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%);
-                --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-                --danger-gradient: linear-gradient(135deg, #ef4444 0%, #f43f5e 100%);
+                --primary-gradient: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+                --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+                --info-gradient: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+                --warning-gradient: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+                --danger-gradient: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
             }
 
             /* Financial Cards */

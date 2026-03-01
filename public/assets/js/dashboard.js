@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [{
                     data: [completedTx, pendingTx, failedTx],
                     backgroundColor: [
-                        '#28a745', // Success - Green
-                        '#ffc107', // Pending - Yellow
-                        '#dc3545'  // Failed - Red
+                        '#11998e', // Success
+                        '#f2994a', // Pending
+                        '#eb3349'  // Failed
                     ],
                     borderWidth: 0,
                     hoverOffset: 4

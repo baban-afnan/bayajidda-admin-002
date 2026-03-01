@@ -38,6 +38,28 @@ class SmeDataController extends Controller
     }
 
     /**
+     * Store a newly created SME data plan.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'data_id' => 'required|string|unique:sme_datas,data_id',
+            'network' => 'required|string',
+            'plan_type' => 'required|string',
+            'amount' => 'required|numeric|min:0',
+            'size' => 'required|string',
+            'validity' => 'required|string',
+            'status' => 'boolean',
+        ]);
+
+        $validated['status'] = $request->has('status');
+
+        SmeData::create($validated);
+
+        return back()->with('success', 'SME Data Plan created successfully.');
+    }
+
+    /**
      * Sync SME data plans from external API.
      */
     public function sync()
@@ -78,11 +100,28 @@ class SmeDataController extends Controller
     public function update(Request $request, SmeData $smeData)
     {
         $validated = $request->validate([
+            'data_id' => 'required|string|unique:sme_datas,data_id,' . $smeData->id,
+            'network' => 'required|string',
+            'plan_type' => 'required|string',
             'amount' => 'required|numeric|min:0',
+            'size' => 'required|string',
+            'validity' => 'required|string',
+            'status' => 'boolean',
         ]);
+
+        $validated['status'] = $request->has('status');
 
         $smeData->update($validated);
 
-        return back()->with('success', 'Plan amount updated successfully.');
+        return back()->with('success', 'SME Data Plan updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(SmeData $smeData)
+    {
+        $smeData->delete();
+        return back()->with('success', 'SME Data Plan deleted successfully.');
     }
 }

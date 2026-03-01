@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Imam Data Sub - Wallet Management</title>
+    <title>Bayajidda Global - Wallet Management</title>
 
     <div class="content">
         {{-- Alerts --}}

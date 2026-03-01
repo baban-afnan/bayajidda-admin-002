@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Safana Digital - Transactions</title>
+    <title>Bayajidda Global - Transactions</title>
 
     <div class="content">
         <!-- Stats Cards -->

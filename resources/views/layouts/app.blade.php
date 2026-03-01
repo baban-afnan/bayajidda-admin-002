@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="description" content="SmartHR - An advanced Bootstrap 5 admin dashboard template.">
+    <meta name="description" content="Bayajidda Global - Premium Administrative Dashboard.">
     <meta name="author" content="Dreams Technologies">
     <meta name="robots" content="index, follow">
 
@@ -24,8 +24,9 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
     <!-- Custom App CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/premium.css') }}">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     @stack('styles')
     
@@ -47,16 +48,22 @@
         #global-loader.hide {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
         }
 
         .page-loader {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #0d5c3e;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid var(--primary-solid);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+            box-shadow: 0 0 15px rgba(0, 47, 186, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif !important;
+            background-color: var(--bg-main) !important;
         }
 
         @keyframes spin {
@@ -104,7 +111,7 @@
                         <div class="col-md-5 text-center text-md-start mb-2 mb-md-0">
                             <p class="mb-0 small">
                                 © <script>document.write(new Date().getFullYear())</script> 
-                                <strong class="text-white"> Smart Link Idea </strong>. 
+                                <strong class="text-white"> Bayajidda Global </strong>. 
                                 All Rights Reserved.
                             </p>
                         </div>

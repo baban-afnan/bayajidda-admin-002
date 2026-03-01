@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Imam Data Sub - Validation Details</title>
+    <title>Bayajidda Global - Validation Details</title>
 
     <div class="content">
         <div class="row mb-4">

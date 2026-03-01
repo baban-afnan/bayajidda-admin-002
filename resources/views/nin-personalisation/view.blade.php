@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Safana Digital - NIN Personalisation details</title>
+    <title>Bayajidda Global - NIN Personalisation details</title>
 
     <div class="content">
         <div class="row mb-4">

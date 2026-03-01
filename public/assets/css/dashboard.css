@@ -1,3 +1,135 @@
+/* =============================================
+   User + Wallet Card
+   ============================================= */
+.user-wallet-card {
+    border: none;
+}
+
+.user-wallet-gradient {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.user-wallet-gradient::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.user-wallet-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Avatar Ring */
+.user-avatar-ring {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Account Badge */
+.account-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Balance Pill */
+.balance-pill {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 10px 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 1;
+}
+
+.balance-label {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.balance-amount {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+/* Toggle / Wallet Buttons */
+.balance-toggle-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 0.8rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.balance-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+@media (max-width: 576px) {
+    .balance-pill {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .user-wallet-gradient {
+        padding: 1.25rem !important;
+    }
+
+    .balance-amount {
+        font-size: 1.1rem;
+    }
+}
+
 /* Dashboard Notification Styles */
 .notification-container {
     overflow: hidden;
@@ -9,12 +141,13 @@
     overflow: hidden;
     white-space: nowrap;
     position: relative;
+    background: linear-gradient(90deg, #002696 0%, #002fba 100%) !important;
 }
 
 .scrolling-text {
     display: inline-block;
     padding-left: 100%;
-    animation: scroll-left 15s linear infinite;
+    animation: scroll-left 20s linear infinite;
 }
 
 @keyframes scroll-left {
@@ -29,6 +162,114 @@
 
 .scrolling-text-container:hover .scrolling-text {
     animation-play-state: paused;
+}
+
+/* Stat Cards Gradients */
+.card-gradient-primary {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+}
+
+.card-gradient-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.card-gradient-warning {
+    background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+    color: white;
+}
+
+.card-gradient-info {
+    background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+    color: white;
+}
+
+.card-gradient-danger {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    color: white;
+}
+
+.stat-card {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.stat-card .icon-container {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.stat-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+/* Quick Services Styles */
+.service-item {
+    display: block;
+    padding: 10px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-3px);
+}
+
+.service-icon-wrap {
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+.service-item:hover .service-icon-wrap {
+    border-color: rgba(var(--bs-primary-rgb), 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+.service-img-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Modal Service Items */
+.modal .card {
+    transition: all 0.3s ease;
+}
+
+.modal .card:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 /* Service Card Styles */
@@ -46,96 +287,143 @@
     row-gap: 14px;
 }
 
-/* Mobile Responsive - Reduce service box size */
+/* Mobile Responsive */
 @media (max-width: 576px) {
-    .service-card .card-body {
-        padding: 0.7rem !important;
+    .service-icon-wrap {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
     }
 
-    .service-card h6 {
-        font-size: 12px !important;
+    .service-icon-wrap i {
+        font-size: 20px !important;
     }
 
-    .service-card .avatar {
-        padding: 0.4rem !important;
+    .service-img-icon {
+        width: 25px;
+        height: 25px;
     }
 
-    .service-card i {
-        font-size: 14px !important;
+    .service-item span {
+        font-size: 11px !important;
+    }
+
+    .card-body.p-4 {
+        padding: 1.25rem !important;
     }
 }
 
-/* Statistics Card Styles */
-.stat-card {
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
-    color: #ffffff;
+/* Enhanced Modal Styles */
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 24px !important;
 }
 
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+.modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+    border-radius: 24px 24px 0 0 !important;
 }
 
-.stat-card .card-body {
-    position: relative;
-    z-index: 1;
+.modal-header .btn-close {
+    background-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+    border-radius: 50%;
+    padding: 0.5rem;
+    background-size: 10px;
+    filter: invert(1);
 }
 
-.stat-title {
-    font-size: 0.85rem;
-    font-weight: 500;
-    opacity: 0.9;
-    margin-bottom: 5px;
-    color: rgba(255, 255, 255, 0.85);
+.modal-body {
+    padding: 2rem 1.5rem;
 }
 
-.stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0;
-    color: #ffffff;
+.modal-service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.75rem;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 20px;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
 }
 
-.icon-container {
-    width: 48px;
-    height: 48px;
+.modal-service-card:hover {
+    background: #fff;
+    border-color: transparent;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.modal-service-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    font-size: 1.5rem;
-    color: #ffffff;
+    margin-bottom: 0.75rem;
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
 }
 
-/* Premium Gradients */
-.card-gradient-primary {
-    background: linear-gradient(135deg, #002fba 0%, #0056fb 100%) !important;
+.modal-service-card:hover .modal-service-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
-.card-gradient-success {
-    background: linear-gradient(135deg, #03c95a 0%, #02e66b 100%) !important;
+.modal-service-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2d3436;
+    text-align: center;
+    margin-bottom: 0;
+    line-height: 1.3;
 }
 
-.card-gradient-info {
-    background: linear-gradient(135deg, #1b84ff 0%, #17c1ff 100%) !important;
+/* Modal Specific Colors */
+.modal-verif .modal-header {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
 }
 
-.card-gradient-warning {
-    background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%) !important;
+.modal-bvn .modal-header {
+    background: linear-gradient(135deg, #00cec9 0%, #81ecec 100%);
 }
 
-/* Decorative Circles for context */
-.stat-card::after {
-    content: '';
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 100px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    z-index: 0;
+.modal-nin .modal-header {
+    background: linear-gradient(135deg, #00b894 0%, #55efc4 100%);
+}
+
+.icon-bg-primary {
+    background: rgba(108, 92, 231, 0.1);
+    color: #6c5ce7;
+}
+
+.icon-bg-info {
+    background: rgba(0, 206, 201, 0.1);
+    color: #00cec9;
+}
+
+.icon-bg-success {
+    background: rgba(0, 184, 148, 0.1);
+    color: #00b894;
+}
+
+.icon-bg-warning {
+    background: rgba(253, 203, 110, 0.1);
+    color: #e17055;
+}
+
+.icon-bg-danger {
+    background: rgba(214, 48, 49, 0.1);
+    color: #d63031;
+}
+
+.icon-bg-secondary {
+    background: rgba(99, 110, 114, 0.1);
+    color: #636e72;
 }

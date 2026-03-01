@@ -1,11 +1,11 @@
 <x-app-layout>
-    <title>Manage SME Data - Data Services</title>
+    <title>Bayajidda Global - Data Services</title>
 
     <div class="content">
         <!-- Page Header -->
         <div class="page-header mb-4">
             <div class="row align-items-center">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <a href="{{ route('admin.data-variations.index') }}" class="btn btn-icon btn-sm btn-light rounded-circle me-3">
                             <i class="ti ti-arrow-left"></i>
@@ -14,18 +14,14 @@
                             <h3 class="page-title text-primary mb-1 fw-bold">SME Data Plans</h3>
                             <ul class="breadcrumb bg-transparent p-0 mb-0">
                                 <li class="breadcrumb-item text-muted">Data Services</li>
-                                <li class="breadcrumb-item active text-primary">SME Variations</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                    <form action="{{ route('admin.sme-data.sync') }}" method="POST" class="d-inline" id="syncForm">
-                        @csrf
-                        <button type="submit" class="btn btn-primary shadow-sm">
-                            <i class="ti ti-refresh me-1"></i>Update Plans
-                        </button>
-                    </form>
+                <div class="col-md-6 text-center mt-2 mt-md-0 d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#addPlanModal">
+                        <i class="ti ti-plus me-1"></i>Add New Plan
+                    </button>
                 </div>
             </div>
         </div>
@@ -128,16 +124,29 @@
                                         @endif
                                     </td>
                                     <td class="text-end pe-4">
-                                        <button class="btn btn-icon btn-sm btn-soft-info rounded-circle edit-plan-btn shadow-sm"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editPlanModal"
-                                                data-id="{{ $variation->id }}"
-                                                data-network="{{ $variation->network }}"
-                                                data-size="{{ $variation->size }}"
-                                                data-amount="{{ $variation->amount }}"
-                                                title="Edit Amount">
-                                            <i class="ti ti-edit"></i>
-                                        </button>
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <button class="btn btn-icon btn-sm btn-soft-info rounded-circle edit-plan-btn shadow-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editPlanModal"
+                                                    data-id="{{ $variation->id }}"
+                                                    data-network="{{ $variation->network }}"
+                                                    data-data_id="{{ $variation->data_id }}"
+                                                    data-plan_type="{{ $variation->plan_type }}"
+                                                    data-size="{{ $variation->size }}"
+                                                    data-validity="{{ $variation->validity }}"
+                                                    data-amount="{{ $variation->amount }}"
+                                                    data-status="{{ $variation->status }}"
+                                                    title="Edit Plan">
+                                                <i class="ti ti-edit"></i>
+                                            </button>
+                                            <form action="{{ route('admin.sme-data.destroy', $variation->id) }}" method="POST" class="delete-plan-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-icon btn-sm btn-soft-danger rounded-circle delete-plan-btn shadow-sm" title="Delete Plan">
+                                                    <i class="ti ti-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty
@@ -162,35 +171,125 @@
         </div>
     </div>
 
+    <!-- Add Plan Modal -->
+    <div class="modal fade" id="addPlanModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold">Add New SME Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('admin.sme-data.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Network</label>
+                                <select name="network" class="form-select" required>
+                                    <option value="MTN">MTN</option>
+                                    <option value="AIRTEL">AIRTEL</option>
+                                    <option value="GLO">GLO</option>
+                                    <option value="9MOBILE">9MOBILE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Plan ID (External)</label>
+                                <input type="text" name="data_id" class="form-control" required placeholder="e.g. 1000">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Plan Type</label>
+                                <input type="text" name="plan_type" class="form-control" required value="SME">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Amount (₦)</label>
+                                <input type="number" step="0.01" name="amount" class="form-control" required placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Size</label>
+                                <input type="text" name="size" class="form-control" required placeholder="e.g. 1.0GB">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Validity</label>
+                                <input type="text" name="validity" class="form-control" required placeholder="e.g. 30 Days">
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="status" id="addStatus" checked value="1">
+                                <label class="form-check-label" for="addStatus">Active Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary px-4">Create Plan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Edit Plan Modal -->
     <div class="modal fade" id="editPlanModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
                 <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold">Edit Plan Amount</h5>
+                    <h5 class="modal-title fw-bold">Edit SME Plan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="editPlanForm" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Network</label>
-                            <input type="text" id="display_network" class="form-control bg-light" readonly>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Network</label>
+                                <select name="network" id="edit_network" class="form-select" required>
+                                    <option value="MTN">MTN</option>
+                                    <option value="AIRTEL">AIRTEL</option>
+                                    <option value="GLO">GLO</option>
+                                    <option value="9MOBILE">9MOBILE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Plan ID</label>
+                                <input type="text" name="data_id" id="edit_data_id" class="form-control" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Plan Size</label>
-                            <input type="text" id="display_size" class="form-control bg-light" readonly>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Plan Type</label>
+                                <input type="text" name="plan_type" id="edit_plan_type" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Amount (₦)</label>
+                                <input type="number" step="0.01" name="amount" id="edit_amount" class="form-control" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Amount (₦)</label>
-                            <input type="number" step="0.01" name="amount" id="edit_amount" class="form-control" required>
-                            <small class="text-muted">Enter the new amount for this plan.</small>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Size</label>
+                                <input type="text" name="size" id="edit_size" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Validity</label>
+                                <input type="text" name="validity" id="edit_validity" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="status" id="edit_status" value="1">
+                                <label class="form-check-label" for="edit_status">Active Status</label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer border-top-0">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Amount</button>
+                        <button type="submit" class="btn btn-primary px-4">Update Plan</button>
                     </div>
                 </form>
             </div>
@@ -237,9 +336,13 @@
                     const id = this.dataset.id;
                     editForm.action = `/admin/sme-data/${id}/update`;
                     
-                    document.getElementById('display_network').value = this.dataset.network;
-                    document.getElementById('display_size').value = this.dataset.size;
+                    document.getElementById('edit_network').value = this.dataset.network;
+                    document.getElementById('edit_data_id').value = this.dataset.data_id;
+                    document.getElementById('edit_plan_type').value = this.dataset.plan_type;
+                    document.getElementById('edit_size').value = this.dataset.size;
+                    document.getElementById('edit_validity').value = this.dataset.validity;
                     document.getElementById('edit_amount').value = this.dataset.amount;
+                    document.getElementById('edit_status').checked = this.dataset.status == 1;
                 });
             });
 
@@ -272,6 +375,28 @@
                     });
                 });
             }
+
+            // Confirmation for Delete
+            const deleteButtons = document.querySelectorAll('.delete-plan-btn');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const form = this.closest('.delete-plan-form');
+                    Swal.fire({
+                        title: 'Delete Plan?',
+                        text: "Are you sure you want to delete this SME plan? This action cannot be undone.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
 
             // Confirmation for Edit
             if(editForm) {

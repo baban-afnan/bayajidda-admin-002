@@ -1,468 +1,295 @@
 <x-app-layout>
-       <title>Safana Digital - Services Management</title>
+    <title>Bayajidda Global - Profile Management</title>
 
-    <div class="container-fluid py-4">
-        
-        <!-- Alerts with Animation -->
-        @if (session('status') || session('error') || $errors->any())
-            <div class="row animate__animated animate__fadeInDown">
-                <div class="col-12">
-                    @if (session('status'))
-                        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 bg-success text-white" role="alert">
-                            <i class="ti ti-circle-check me-2"></i> {{ session('status') }}
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="content fade-in">
+        {{-- Header Section --}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card glass-card border-0 animate-slide-up">
+                    <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div>
+                            <h4 class="mb-0 fw-bold text-primary">Account Management</h4>
+                            <p class="text-muted mb-0 small opacity-75">View and update your personal security settings</p>
                         </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 bg-danger text-white" role="alert">
-                            <i class="ti ti-alert-circle me-2"></i> {{ session('error') }}
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="d-flex gap-2">
+                            <a href="{{ route('dashboard') }}" class="btn btn-light rounded-pill px-4">
+                                <i class="ti ti-smart-home me-1"></i> Dashboard
+                            </a>
                         </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 bg-danger text-white" role="alert">
-                            <ul class="mb-0 list-unstyled">
-                                @foreach ($errors->all() as $error)
-                                    <li><i class="ti ti-alert-triangle me-2"></i> {{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
+                    </div>
                 </div>
             </div>
-        @endif
+        </div>
 
-        <div class="row g-4">
-
-            <!-- LEFT COLUMN: Profile Overview -->
+        <div class="row">
+            {{-- Left Column: Profile Summary --}}
             <div class="col-lg-4">
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100 glass-card">
-                    <!-- Glassmorphism Background -->
-                    <div class="card-header position-relative border-0" style="height: 140px; background: linear-gradient(135deg, #032f35, #10dfe6); overflow: hidden;">
-                        <div class="position-absolute w-100 h-100 top-0 start-0" style="background: url('https://www.transparenttextures.com/patterns/cubes.png'); opacity: 0.1;"></div>
-                        <div class="glass-orb orb-1"></div>
-                        <div class="glass-orb orb-2"></div>
+                <div class="card glass-card border-0 mb-4 text-center overflow-hidden">
+                    <div class="card-header border-0 py-5 bg-primary-gradient position-relative">
+                        <div class="position-absolute w-100 h-100 top-0 start-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
                     </div>
-
-                    <div class="card-body text-center pt-0 position-relative">
-                        <!-- Profile Photo with Enhanced Styling -->
-                        <div class="position-relative d-inline-block mb-3 profile-photo-wrapper" style="margin-top: -70px;">
-                            <div class="profile-photo-container">
-                                <img src="{{ $user->photo ? asset($user->photo) : asset('assets/img/profiles/avatar-01.jpg') }}"
-                                     alt="Profile Photo"
-                                     class="rounded-circle shadow-lg bg-white profile-img"
-                                     style="width:140px;height:140px;object-fit:cover; border: 5px solid #fff;">
-                                <div class="photo-overlay d-flex align-items-center justify-content-center rounded-circle" data-bs-toggle="modal" data-bs-target="#photoModal">
-                                    <i class="ti ti-camera fs-3 text-white"></i>
-                                </div>
+                    <div class="card-body pt-0 position-relative" style="margin-top: -60px;">
+                        <div class="position-relative d-inline-block mb-3">
+                            <div class="profile-photo-wrapper">
+                                @php
+                                    $photo = $user->photo ? asset($user->photo) : asset('assets/img/profiles/avatar-01.jpg');
+                                @endphp
+                                <img src="{{ $photo }}" class="rounded-circle shadow-lg border border-4 border-white bg-white" width="120" height="120" style="object-fit: cover;">
+                                <button class="btn btn-sm btn-primary rounded-circle position-absolute bottom-0 end-0 p-2 shadow" data-bs-toggle="modal" data-bs-target="#photoModal">
+                                    <i class="ti ti-camera"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <h4 class="mb-1 text-dark">{{ $user->first_name }} {{ $user->last_name }}</h4>
-                        <p class="text-muted mb-3 flex-grow-1"><i class="ti ti-mail me-1"></i>{{ $user->email }}</p>
-                        
+                        <h5 class="fw-bold mb-1">{{ $user->first_name }} {{ $user->last_name }}</h5>
+                        <p class="text-muted small mb-4">{{ $user->email }}</p>
+
                         <div class="d-flex justify-content-center gap-2 mb-4">
-                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 border border-primary-subtle">
-                                <i class="ti ti-shield-check me-1"></i> {{ ucfirst($user->role ?? 'User') }}
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 border border-primary-subtle small fw-bold">
+                                {{ strtoupper($user->role ?? 'Agent') }}
                             </span>
-                            <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 border border-success-subtle">
-                                <i class="ti ti-wallet me-1"></i> Limit: ₦{{ number_format($user->limit, 2) }}
+                            <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 border border-success-subtle small fw-bold">
+                                ₦{{ number_format($user->limit, 2) }} LIMIT
                             </span>
                         </div>
 
-                        <div class="p-3 bg-light rounded-4 mb-4 border text-start">
-                            <div class="d-flex align-items-center mb-2">
-                                <div class="icon-box bg-white shadow-sm rounded-3 me-3 p-2 text-primary">
-                                    <i class="ti ti-phone fs-15"></i>
-                                </div>
-                                <div>
-                                    <small class="text-muted d-block">Phone Number</small>
-                                    <span class="fw-semibold">{{ $user->phone_no }}</span>
-                                </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="p-3 bg-light rounded-3 d-flex align-items-center justify-content-between">
+                                <span class="text-muted small fw-bold text-uppercase opacity-75">Phone</span>
+                                <span class="fw-bold small">{{ $user->phone_no }}</span>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div class="icon-box bg-white shadow-sm rounded-3 me-3 p-2 text-primary">
-                                    <i class="ti ti-building fs-15"></i>
-                                </div>
-                                <div>
-                                    <small class="text-muted d-block">Business</small>
-                                    <span class="fw-semibold">{{ $user->business_name ?? 'Personal Account' }}</span>
-                                </div>
+                            <div class="p-3 bg-light rounded-3 d-flex align-items-center justify-content-between">
+                                <span class="text-muted small fw-bold text-uppercase opacity-75">Business</span>
+                                <span class="fw-bold small">{{ $user->business_name ?? 'Individual' }}</span>
                             </div>
                         </div>
 
-                        <!-- Reset Buttons -->
                         <div class="row g-2">
                             <div class="col-6">
-                                <button class="btn btn-outline-primary w-100 rounded-4 py-3 hover-lift" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                                <button class="btn btn-outline-primary w-100 rounded-pill py-2 small fw-bold hover-lift" data-bs-toggle="modal" data-bs-target="#passwordModal">
                                     <i class="ti ti-lock me-1"></i> Password
                                 </button>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-outline-danger w-100 rounded-4 py-3 hover-lift" data-bs-toggle="modal" data-bs-target="#pinModal">
+                                <button class="btn btn-outline-danger w-100 rounded-pill py-2 small fw-bold hover-lift" data-bs-toggle="modal" data-bs-target="#pinModal">
                                     <i class="ti ti-key me-1"></i> Trans PIN
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {{-- Quick Actions --}}
+                <x-service-card title="System Access" icon="ti-settings">
+                    <div class="col-12">
+                        <div class="p-3 bg-primary-subtle border border-primary-subtle rounded-3 mb-3">
+                            <h6 class="fw-bold text-primary mb-1 small">KYC Level 2</h6>
+                            <p class="text-primary small mb-2 opacity-75">Verify your account to increase daily limits.</p>
+                            <button class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#forceProfileModal">Verify Now</button>
+                        </div>
+                        <div class="p-3 bg-light border rounded-3 text-center">
+                            <p class="text-muted x-small mb-0">Member since {{ $user->created_at?->format('F Y') }}</p>
+                        </div>
+                    </div>
+                </x-service-card>
             </div>
 
-            <!-- RIGHT COLUMN: User Details & Settings -->
+            {{-- Right Column: Detailed Info --}}
             <div class="col-lg-8">
-                <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100 glass-card">
-                    <div class="card-header bg-white border-0 py-4 px-4 d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0 text-dark"><i class="ti ti-user-circle me-2 text-primary"></i>Identity Details</h4>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-primary text-decoration-none">Dashboard</a></li>
-                            </ol>
-                        </nav>
+                <x-service-card title="Identity Details" icon="ti-user-circle">
+                    <x-data-item label="First Name" :value="$user->first_name" icon="ti-id" />
+                    <x-data-item label="Middle Name" :value="$user->middle_name ?? 'N/A'" icon="ti-id" />
+                    <x-data-item label="Last Name" :value="$user->last_name" icon="ti-id" />
+                    <x-data-item label="Email Address" :value="$user->email" icon="ti-mail" />
+                    <x-data-item label="Phone Number" :value="$user->phone_no" icon="ti-phone" />
+                    <x-data-item label="State" :value="$user->state ?? 'N/A'" icon="ti-map-pin" />
+                    <x-data-item label="LGA" :value="$user->lga ?? 'N/A'" icon="ti-building-community" />
+                    
+                    <div class="col-12">
+                        <hr class="opacity-10 my-2">
                     </div>
 
-                    <div class="card-body px-4 pb-4">
-                        <div class="row g-4">
-                            <!-- Detail Items as Cards -->
-                            <div class="col-md-6 text-md-start">
-                                <div class="p-3 border rounded-4 hover-shadow transition-all bg-white shadow-sm">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="ti ti-id me-2 text-primary"></i>
-                                        <small class="text-muted text-uppercase tracking-wider fs-xs">Full Name</small>
-                                    </div>
-                                    <div class="text-dark fs-14">{{ $user->first_name }} {{ $user->middle_name ? $user->middle_name . ' ' : '' }}{{ $user->last_name }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 text-md-start">
-                                <div class="p-3 border rounded-4 hover-shadow transition-all bg-white shadow-sm">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="ti ti-mail me-2 text-primary"></i>
-                                        <small class="text-muted text-uppercase tracking-wider fs-xs">Email Address</small>
-                                    </div>
-                                    <div class="text-dark fs-14">{{ $user->email }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 text-md-start">
-                                <div class="p-3 border rounded-4 hover-shadow transition-all bg-white shadow-sm h-100 text-md-start">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="ti ti-map-pin me-2 text-primary"></i>
-                                        <small class="text-muted text-uppercase tracking-wider fs-xs">State</small>
-                                    </div>
-                                    <div class="text-dark fs-16">{{ $user->state ?? 'N/A' }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 text-md-start">
-                                <div class="p-3 border rounded-4 hover-shadow transition-all bg-white shadow-sm h-100 text-md-start">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="ti ti-building-community me-2 text-primary"></i>
-                                        <small class="text-muted text-uppercase tracking-wider fs-xs">Local Government</small>
-                                    </div>
-                                    <div class="text-dark fs-16">{{ $user->lga ?? 'N/A' }}</div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4 text-md-start">
-                                <div class="p-3 border rounded-4 hover-shadow transition-all bg-white shadow-sm h-100 text-md-start">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="ti ti-calendar-event me-2 text-primary"></i>
-                                        <small class="text-muted text-uppercase tracking-wider fs-xs">Member Since</small>
-                                    </div>
-                                    <div class="text-dark fs-16">{{ $user->created_at->format('M Y') }}</div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 text-md-start">
-                                <div class="p-4 border rounded-4 hover-shadow transition-all bg-primary-subtle border-primary-subtle text-md-start">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="ti ti-map-2 me-2 text-primary fs-16"></i>
-                                        <small class="text-primary text-uppercase tracking-wider fs-xs">Residential Address</small>
-                                    </div>
-                                    <div class="text-dark fs-16">{{ $user->address ?? 'No address provided in profile' }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-5 text-md-start">
-                            <h5 class="mb-4 text-dark"><i class="ti ti-settings-2 me-2 text-primary"></i>Quick Actions</h5>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="p-4 border rounded-4 bg-light position-relative overflow-hidden group hover:bg-white transition-all shadow-sm">
-                                        <div class="d-flex align-items-center position-relative">
-                                            <div class="bg-primary text-white p-3 rounded-4 me-3">
-                                                <i class="ti ti-id-badge-2 fs-3"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-1">KYC Verification</h6>
-                                                <p class="text-muted small mb-0">Update your identity documents</p>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#forceProfileModal"></a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-md-start">
-                                    <div class="p-4 border rounded-4 bg-light position-relative overflow-hidden group hover:bg-white transition-all shadow-sm text-md-start">
-                                        <div class="d-flex align-items-center position-relative">
-                                            <div class="bg-secondary text-white p-3 rounded-4 me-3">
-                                                <i class="ti ti-help-hexagon fs-3"></i>
-                                            </div>
-                                            <div class="text-md-start">
-                                                <h6 class="mb-1">Support Center</h6>
-                                                <p class="text-muted small mb-0">Need help? Contact our team</p>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="stretched-link"></a>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small text-uppercase fw-bold opacity-75">Office / Residential Address</label>
+                        <div class="p-3 bg-light rounded-3 border">
+                            <p class="mb-0 fw-medium small">{{ $user->address ?? 'No address provided in profile' }}</p>
                         </div>
                     </div>
-                </div>
+                </x-service-card>
+
+                <x-service-card title="Account Activity" icon="ti-activity">
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded-3 bg-white hover-shadow transition-all">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="ti ti-calendar me-2 text-primary opacity-75"></i>
+                                <small class="text-muted text-uppercase fw-bold x-small">Date Joined</small>
+                            </div>
+                            <div class="fw-bold">{{ $user->created_at?->format('d M, Y') }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded-3 bg-white hover-shadow transition-all">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="ti ti-clock me-2 text-primary opacity-75"></i>
+                                <small class="text-muted text-uppercase fw-bold x-small">Last Updated</small>
+                            </div>
+                            <div class="fw-bold">{{ $user->updated_at?->diffForHumans() }}</div>
+                        </div>
+                    </div>
+                </x-service-card>
             </div>
         </div>
     </div>
 
-    <!-- MODALS -->
-    
-    <!-- Photo Modal -->
-    <div class="modal fade" id="photoModal" tabindex="-1">
+    {{-- Modals --}}
+    {{-- Photo Update Modal --}}
+    <div class="modal fade" id="photoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-5 shadow-2xl border-0 bg-white">
-                <div class="modal-header border-0 p-4 pb-0">
-                    <h5 class="modal-title text-dark d-flex align-items-center">
-                        <span class="bg-primary-subtle p-2 rounded-3 me-2"><i class="ti ti-camera text-primary"></i></span>
-                        Update Profile Photo
+            <div class="modal-content border-0 glass-card" style="border-radius: 1.5rem;">
+                <div class="modal-header bg-primary text-white py-4" style="border-radius: 1.5rem 1.5rem 0 0;">
+                    <h5 class="modal-title fw-bold">
+                        <i class="ti ti-camera me-2"></i>Update Profile Photo
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('profile.photo') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body p-4 text-center">
-                        <div class="upload-zone p-5 border-2 border-dashed rounded-5 mb-4 bg-light hover:bg-primary-subtle transition-all cursor-pointer position-relative">
+                        <div class="upload-zone p-5 border-2 border-dashed rounded-4 mb-4 bg-light hover-primary-subtle cursor-pointer" onclick="document.getElementById('photoInput').click()">
                             <div id="uploadPlaceholder">
-                                <i class="ti ti-cloud-upload text-primary display-4 mb-3"></i>
-                                <h6 class="mb-2">Drop your image here</h6>
-                                <p class="text-muted small mb-3">or click to browse from files</p>
+                                <i class="ti ti-cloud-upload text-primary display-4 mb-2"></i>
+                                <h6 class="fw-bold">Click to Upload</h6>
+                                <p class="text-muted small">PNG, JPG or WEBP (Max 2MB)</p>
                             </div>
-                            <img id="photoPreview" src="#" alt="Preview" class="d-none rounded-4 shadow-sm" style="max-width: 100%; max-height: 200px; object-fit: contain;">
-                            <input type="file" name="photo" class="form-control d-none" id="photoInput" accept="image/*" required onchange="previewImage(this)">
-                            <button type="button" class="btn btn-primary rounded-pill px-4 btn-sm mt-3" onclick="document.getElementById('photoInput').click()">Select File</button>
-                        </div>
-                        <script>
-                            function previewImage(input) {
-                                if (input.files && input.files[0]) {
-                                    var reader = new FileReader();
-                                    reader.onload = function(e) {
-                                        document.getElementById('uploadPlaceholder').classList.add('d-none');
-                                        var preview = document.getElementById('photoPreview');
-                                        preview.src = e.target.result;
-                                        preview.classList.remove('d-none');
-                                    }
-                                    reader.readAsDataURL(input.files[0]);
-                                }
-                            }
-                        </script>
-                        <div class="text-start p-3 bg-light rounded-4">
-                            <small class="text-muted d-block mb-1"><i class="ti ti-info-circle me-1"></i>Requirements:</small>
-                            <ul class="small text-muted mb-0 ps-3">
-                                <li>Formats: JPG, PNG, WEBP</li>
-                                <li>Max size: 2MB</li>
-                            </ul>
+                            <img id="photoPreview" src="#" class="d-none rounded-3 shadow-sm mx-auto" style="max-width: 151px; max-height: 151px; object-fit: cover;">
+                            <input type="file" name="photo" id="photoInput" class="d-none" accept="image/*" onchange="previewProfilePhoto(this)">
                         </div>
                     </div>
-                    <div class="modal-footer border-0 p-4 pt-0">
-                        <button type="button" class="btn btn-light rounded-pill px-4 flex-grow-1" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 flex-grow-1">Save Changes</button>
+                    <div class="modal-footer bg-light border-0 py-4" style="border-radius: 0 0 1.5rem 1.5rem;">
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4">Save Photo</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Password Modal -->
-    <div class="modal fade" id="passwordModal" tabindex="-1">
+    {{-- Password Update Modal --}}
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-5 shadow-2xl border-0">
-                <div class="modal-header border-0 p-4 pb-0">
-                    <h5 class="modal-title text-dark d-flex align-items-center">
-                        <span class="bg-primary-subtle p-2 rounded-3 me-2"><i class="ti ti-lock text-primary"></i></span>
-                        Security Upgrade
+            <div class="modal-content border-0 glass-card" style="border-radius: 1.5rem;">
+                <div class="modal-header bg-primary text-white py-4" style="border-radius: 1.5rem 1.5rem 0 0;">
+                    <h5 class="modal-title fw-bold">
+                        <i class="ti ti-lock me-2"></i>Change Password
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" action="{{ route('password.update') }}">
                     @csrf
                     @method('PUT')
                     <div class="modal-body p-4">
                         <div class="mb-3">
-                            <label class="form-label small text-muted text-uppercase">Current Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-0 rounded-start-4"><i class="ti ti-shield-lock text-muted"></i></span>
-                                <input type="password" name="current_password" class="form-control bg-light border-0 rounded-end-4 p-3 shadow-none" required placeholder="••••••••">
-                            </div>
+                            <label class="form-label fw-bold small text-uppercase opacity-75">Current Password</label>
+                            <input type="password" name="current_password" class="form-control border-0 bg-light p-3 rounded-3" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small text-muted text-uppercase">New Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-0 rounded-start-4"><i class="ti ti-lock-cog text-muted"></i></span>
-                                <input type="password" name="password" class="form-control bg-light border-0 rounded-end-4 p-3 shadow-none" required placeholder="••••••••">
-                            </div>
+                            <label class="form-label fw-bold small text-uppercase opacity-75">New Password</label>
+                            <input type="password" name="password" class="form-control border-0 bg-light p-3 rounded-3" required>
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label small text-muted text-uppercase">Verify New Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-0 rounded-start-4"><i class="ti ti-lock-check text-muted"></i></span>
-                                <input type="password" name="password_confirmation" class="form-control bg-light border-0 rounded-end-4 p-3 shadow-none" required placeholder="••••••••">
-                            </div>
+                        <div class="mb-0">
+                            <label class="form-label fw-bold small text-uppercase opacity-75">Confirm New Password</label>
+                            <input type="password" name="password_confirmation" class="form-control border-0 bg-light p-3 rounded-3" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill p-3 text-md-start">
-                            <span class="d-flex align-items-center justify-content-center">
-                                <i class="ti ti-refresh me-2"></i> Update Security Credentials
-                            </span>
-                        </button>
+                    </div>
+                    <div class="modal-footer bg-light border-0 py-4" style="border-radius: 0 0 1.5rem 1.5rem;">
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4">Update Password</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- PIN Modal -->
-    <div class="modal fade" id="pinModal" tabindex="-1">
+    {{-- PIN Modal --}}
+    <div class="modal fade" id="pinModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-5 shadow-2xl border-0">
-                <div class="modal-header border-0 p-4 pb-0">
-                    <h5 class="modal-title text-dark d-flex align-items-center">
-                        <span class="bg-danger-subtle p-2 rounded-3 me-2"><i class="ti ti-key text-danger"></i></span>
-                        Transaction Security
+            <div class="modal-content border-0 glass-card" style="border-radius: 1.5rem;">
+                <div class="modal-header bg-danger text-white py-4" style="border-radius: 1.5rem 1.5rem 0 0;">
+                    <h5 class="modal-title fw-bold">
+                        <i class="ti ti-key me-2"></i>Transaction PIN
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" action="{{ route('profile.pin') }}">
                     @csrf
-                    <div class="modal-body p-4">
-                        <div class="alert alert-warning border-0 rounded-4 mb-4 d-flex">
-                            <i class="ti ti-alert-triangle-filled fs-4 me-2"></i>
-                            <div class="small">The transaction PIN is required for sending funds and making purchases. <strong>Never share it with anyone.</strong></div>
+                    <div class="modal-body p-4 text-center">
+                        <div class="alert bg-danger-subtle text-danger border-0 rounded-3 mb-4 small fw-bold">
+                            <i class="ti ti-alert-triangle me-1"></i> Never share your 5-digit PIN with anyone!
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label small text-muted text-uppercase">Account Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-0 rounded-start-4"><i class="ti ti-lock text-muted"></i></span>
-                                <input type="password" name="current_password" class="form-control bg-light border-0 rounded-end-4 p-3 shadow-none" required placeholder="Enter login password">
+                        <div class="mb-3 text-start">
+                            <label class="form-label fw-bold small text-uppercase opacity-75">Login Password</label>
+                            <input type="password" name="current_password" class="form-control border-0 bg-light p-3 rounded-3" required>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-6 text-start">
+                                <label class="form-label fw-bold small text-uppercase opacity-75">New 5-Digit PIN</label>
+                                <input type="password" name="pin" maxlength="5" class="form-control border-0 bg-light p-3 rounded-3 text-center fw-bold fs-4 tracking-widest" required>
+                            </div>
+                            <div class="col-6 text-start">
+                                <label class="form-label fw-bold small text-uppercase opacity-75">Confirm PIN</label>
+                                <input type="password" name="pin_confirmation" maxlength="5" class="form-control border-0 bg-light p-3 rounded-3 text-center fw-bold fs-4 tracking-widest" required>
                             </div>
                         </div>
-                        <div class="row g-3 mb-4">
-                            <div class="col-6">
-                                <label class="form-label small text-muted text-uppercase">New 5-Digit PIN</label>
-                                <input type="password" name="pin" maxlength="5" pattern="\d{5}" class="form-control bg-light border-0 rounded-4 p-3 shadow-none text-center fs-4 tracking-widest" required placeholder="•••••">
-                            </div>
-                            <div class="col-6 text-md-start">
-                                <label class="form-label small text-muted text-uppercase">Verify PIN</label>
-                                <input type="password" name="pin_confirmation" maxlength="5" pattern="\d{5}" class="form-control bg-light border-0 rounded-4 p-3 shadow-none text-center fs-4 tracking-widest text-md-start" required placeholder="•••••">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-danger w-100 rounded-pill p-3">
-                            <i class="ti ti-shield-check me-2"></i> Set Secure Transaction PIN
-                        </button>
+                    </div>
+                    <div class="modal-footer bg-light border-0 py-4" style="border-radius: 0 0 1.5rem 1.5rem;">
+                        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger rounded-pill px-4">Securely Set PIN</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    @push('scripts')
+    <script>
+        function previewProfilePhoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('uploadPlaceholder').classList.add('d-none');
+                    const preview = document.getElementById('photoPreview');
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    @endpush
+
     @push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, var(--bs-primary) 0%, #1a8a9a 100%);
         }
-        
-        .glass-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(30px);
-            z-index: 0;
-        }
-        
-        .orb-1 {
-            width: 150px;
-            height: 150px;
-            background: rgba(16, 223, 230, 0.3);
-            top: -50px;
-            right: -20px;
-        }
-        
-        .orb-2 {
-            width: 100px;
-            height: 100px;
-            background: rgba(3, 47, 53, 0.2);
-            bottom: -30px;
-            left: -10px;
-        }
-        
-        .profile-photo-container {
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        
-        .profile-photo-container:hover .profile-img {
-            transform: scale(1.05);
-            filter: brightness(0.8);
-        }
-        
-        .photo-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            opacity: 0;
+        .upload-zone {
             transition: all 0.3s ease;
-            z-index: 2;
         }
-        
-        .profile-photo-container:hover .photo-overlay {
-            opacity: 1;
+        .upload-zone:hover {
+            border-color: var(--bs-primary) !important;
+            background-color: var(--bs-primary-bg-subtle) !important;
         }
-        
-        .hover-lift {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-        }
-        
         .hover-shadow:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border-color: var(--bs-primary) !important;
         }
-        
-        .tracking-wider { letter-spacing: 0.1em; }
-        .fs-xs { font-size: 0.7rem; }
-        .transition-all { transition: all 0.3s ease; }
-        .cursor-pointer { cursor: pointer; }
-        
-        .upload-zone:hover {
-            background-color: #f0f7f8;
-            border-color: #10dfe6;
+        .tracking-widest { letter-spacing: 0.5rem; }
+        .profile-photo-wrapper {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
-        .shadow-2xl {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .profile-photo-wrapper:hover {
+            transform: scale(1.05);
         }
-
-        .tracking-widest { letter-spacing: 0.5em; }
     </style>
     @endpush
 </x-app-layout>

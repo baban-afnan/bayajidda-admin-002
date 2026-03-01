@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safana Digital - Admin Dashboard</title>
+    <title>Bayajidda Global - Admin Dashboard</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Outfit -->
@@ -310,7 +310,7 @@
         <div class="overlay-gradient"></div>
         
         <div class="loader-content">
-            <h1 class="loader-title">Welcome - Safana</h1>
+            <h1 class="loader-title">Welcome - Bayajidda Global</h1>
             
             <div class="encouragement-text" id="encouragement-text">
                 Initializing safe environment...
@@ -372,7 +372,7 @@
             els.percent.textContent = "100%";
             els.bar.style.width = "100%";
             
-            updateText("Welcome to Smart Idea Staff Portal");
+            updateText("Welcome to Bayajidda Global Dashboard");
             
             setTimeout(() => {
                 // Determine if we should hide the loader elements or just fade them

@@ -1,15 +1,9 @@
 <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
+<div class="sidebar sidebar-primary" id="sidebar">
     <!-- Logo -->
-    <div class="sidebar-logo">
-        <a href="{{ route('dashboard') }}" class="logo logo-normal">
-            <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" style="height: 50px;">
-        </a>
-        <a href="{{ route('dashboard') }}" class="logo-small">
-            <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo">
-        </a>
-        <a href="{{ route('dashboard') }}" class="dark-logo">
-            <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" style="height: 40px;">
+    <div class="sidebar-logo p-4 d-flex justify-content-center align-items-center">
+        <a href="{{ route('dashboard') }}" class="logo-normal">
+            <img src="{{ asset('assets/images/logo/logo.png') }}" alt="Logo" style="height: 55px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
         </a>
     </div>
     <!-- /Logo -->
@@ -84,17 +78,33 @@
                     </ul>
                 </li>
 
-                <!-- Verification -->
+                <!-- NIN services -->
                   <li class="submenu">
                     <a href="javascript:void(0);">
                         <i class="ti ti-credit-card"></i>
-                        <span>Other Services</span>
+                        <span>NIN Services</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
                         <li><a href="{{ route('ninipe.index') }}" class="{{ request()->routeIs('ninipe.*') ? 'active' : '' }}">NIN IPE</a></li>
                         <li><a href="{{ route('vnin-nibss.index') }}" class="{{ request()->routeIs('vnin-nibss.*') ? 'active' : '' }}">VNIN to NIBSS</a></li>
                         <li><a href="{{ route('nin-personalisation.index') }}" class="{{ request()->routeIs('nin-personalisation.*') ? 'active' : '' }}">NIN Personalisation</a></li>
+                    </ul>
+                </li>
+
+
+                   <!-- other services -->
+                  <li class="submenu">
+                    <a href="javascript:void(0);">
+                        <i class="ti ti-car"></i>
+                        <span>Other Services</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul>
+                        <li><a href="{{ route('visa.index') }}" class="{{ request()->routeIs('visa.*') ? 'active' : '' }}">Visa Request</a></li>
+                        <li><a href="{{ route('hotel.index') }}" class="{{ request()->routeIs('hotel.*') ? 'active' : '' }}">Hotel Booking</a></li>
+                        <li><a href="{{ route('flight.index') }}" class="{{ request()->routeIs('flight.*') ? 'active' : '' }}">Flight Booking</a></li>
+                        <li><a href="{{ route('cac.index') }}" class="{{ request()->routeIs('cac.*') ? 'active' : '' }}">CAC Registration</a></li>
                     </ul>
                 </li>
 
@@ -134,143 +144,23 @@
     @csrf
 </form>
 
-<style>
-/* Clean Sidebar Styling - Green Theme */
-.sidebar {
-    background: #ffffff;
-    border-right: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
-    z-index: 1041;
-}
-
-@media (max-width: 991.98px) {
-    .sidebar {
-        margin-left: -252px; /* Hidden by default on mobile */
-        width: 252px;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-    }
-    .slide-nav .sidebar {
-        margin-left: 0 !important; /* Slide into view */
-    }
-}
-
-.sidebar-logo {
-    padding: 20px;
-    background: #ffffff;
-    border-bottom: 1px solid #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-menu {
-    padding: 10px 0;
-}
-
-.sidebar-menu li a {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    margin: 4px 15px;
-    border-radius: 8px;
-    color: #555;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.sidebar-menu li a i {
-    font-size: 1.2rem;
-    margin-right: 12px;
-    width: 24px;
-    text-align: center;
-}
-
-.sidebar-menu li a:hover {
-    background: rgba(13, 92, 62, 0.05);
-    color: #002fba;
-}
-
-/* Active Menu Item */
-.sidebar-menu li.active > a,
-.sidebar-menu li a.active {
-    background: #002fba !important;
-    color: #6d2c2cff !important;
-    box-shadow: 0 4px 12px rgba(13, 92, 62, 0.15);
-}
-
-
-.sidebar-menu li.active > a i,
-.sidebar-menu li a.active i {
-    color: #002fba !important;
-}
-
-/* Submenu Active Overrides */
-.sidebar-menu .submenu ul li a.active {
-    background: transparent !important;
-    color: #002fba !important;
-    box-shadow: none !important;
-    font-weight: 700;
-}
-
-.sidebar-menu .submenu ul li a.active:hover {
-    text-decoration: underline;
-}
-
-/* Submenu Styles */
-.sidebar-menu .submenu ul {
-    display: none;
-    background: #f9fafb;
-    margin: 5px 15px;
-    border-radius: 8px;
-    list-style: none;
-    padding: 5px 0;
-}
-
-.sidebar-menu .submenu.submenu-open > ul {
-    display: block;
-}
-
-.sidebar-menu .submenu ul li a {
-    padding-left: 45px;
-    font-size: 0.85rem;
-    margin: 2px 0;
-    color: #666;
-}
-
-.sidebar-menu .submenu ul li a:hover {
-    color: #002fba;
-    background: transparent;
-    text-decoration: underline;
-}
-
-/* Menu Titles */
-.menu-title {
-    padding: 15px 25px 5px 25px;
-    font-size: 10px;
-    text-transform: uppercase;
-    color: #851f1fff;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-}
-</style>
-
 <script>
 function confirmLogout(event, formId) {
     event.preventDefault();
-    
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You will be logged out of your account.",
+        title: 'Logout?',
+        text: "You will be signed out of your session.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#002fba',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, logout!',
-        cancelButtonText: 'Cancel'
+        confirmButtonColor: '#4c3be7ff',
+        cancelButtonColor: '#ff4d4d',
+        confirmButtonText: 'Yes, Sign Out',
+        cancelButtonText: 'Stay Logged In',
+        customClass: {
+            popup: 'glass-card border-0 rounded-4',
+            confirmButton: 'btn btn-primary px-4',
+            cancelButton: 'btn btn-light px-4'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             document.getElementById(formId).submit();

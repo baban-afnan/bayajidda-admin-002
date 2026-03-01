@@ -1,0 +1,260 @@
+/* 
+ * BAYA JIDDA MODERN DESIGN SYSTEM
+ * Premium tokens and utility classes for a state-of-the-art interface.
+ */
+
+:root {
+    /* Brand Colors */
+    --primary-solid: #002fba;
+    /* Brand Blue */
+    --primary-light: #1a4cd1;
+    --primary-dark: #001f7a;
+    --primary-glow: rgba(0, 47, 186, 0.4);
+
+    --secondary-solid: #3B7080;
+    --accent-gold: #FFC107;
+
+    /* Backgrounds & Surfaces */
+    --surface-glass: rgba(255, 255, 255, 0.7);
+    --surface-glass-dark: rgba(255, 255, 255, 0.1);
+    --bg-main: #f8fafc;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-premium: 0 10px 30px -5px rgba(0, 47, 186, 0.15);
+
+    /* Gradients */
+    --grad-primary: linear-gradient(135deg, #002fba 0%, #1a4cd1 100%);
+    --grad-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+    --grad-success: linear-gradient(135deg, #03C95A 0%, #02a148 100%);
+}
+
+/* Premium Component Styles */
+
+.glass-card {
+    background: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-premium);
+}
+
+.stat-card-premium,
+.stat-card-primary {
+    background: var(--grad-primary);
+    color: white;
+    overflow: hidden;
+    position: relative;
+    border: none;
+}
+
+.stat-card-premium::after,
+.stat-card-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.btn-premium,
+.btn-primary {
+    background: var(--grad-primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 10px 24px;
+    font-weight: 600;
+    box-shadow: 0 4px 14px 0 rgba(0, 47, 186, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.btn-premium:hover,
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(0, 47, 186, 0.4) !important;
+    color: white !important;
+    filter: brightness(1.1);
+}
+
+.bg-primary-gradient {
+    background: var(--grad-primary) !important;
+    color: white !important;
+}
+
+/* Micro-animations */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Custom Scrollbar for Premium Feel */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Sidebar Primary Styling */
+.sidebar-premium,
+.sidebar-primary {
+    background: #ffffff !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02) !important;
+}
+
+.sidebar-menu li a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-radius: 12px !important;
+    margin: 4px 15px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 15px !important;
+    text-decoration: none !important;
+}
+
+.sidebar-menu li a:hover {
+    background: var(--primary-light) !important;
+    color: var(--primary-solid) !important;
+    transform: translateX(5px);
+}
+
+.sidebar-menu li.active>a,
+.sidebar-menu li a.active {
+    background: var(--primary-solid) !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 20px rgba(0, 47, 186, 0.2) !important;
+}
+
+.sidebar-menu li.active>a i,
+.sidebar-menu li a.active i {
+    color: #ffffff !important;
+}
+
+/* Header Primary Styling */
+.header-premium,
+.header-primary {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(15px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+.btn-menubar {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    transition: all 0.2s ease;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+}
+
+.btn-menubar:hover {
+    background: var(--primary-light);
+    color: var(--primary-solid);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+/* Micro-Animations & Interactions */
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+.glass-hover {
+    transition: all 0.3s ease;
+}
+
+.glass-hover:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.pulse-slow {
+    animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-solid), #4d6be0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

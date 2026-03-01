@@ -32,6 +32,6 @@
     </div>
 
     <div class="text-center mt-5">
-        <p class="text-muted small mb-0">&copy; {{ date('Y') }} SmartLink Innovation</p>
+        <p class="text-muted small mb-0">&copy; {{ date('Y') }} Bayajidda Global</p>
     </div>
 </x-guest-layout>

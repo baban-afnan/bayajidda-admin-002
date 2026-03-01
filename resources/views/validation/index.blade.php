@@ -1,5 +1,5 @@
 <x-app-layout>
- <title>Safana Digital - NIN - Validation</title>
+ <title>Bayajidda Global - NIN - Validation</title>
       <div class="page-body">
     <div class="container-fluid">
       <div class="page-title">

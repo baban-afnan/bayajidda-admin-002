@@ -20,6 +20,10 @@ use App\Http\Controllers\Agency\NinIpeController;
 use App\Http\Controllers\Agency\NinPersonalisationController;
 use App\Http\Controllers\Agency\ValidationController;
 use App\Http\Controllers\Agency\VninToNibssController;
+use App\Http\Controllers\Agency\CACController;
+use App\Http\Controllers\Agency\VisaRequestController;
+use App\Http\Controllers\Agency\HotelBookingController;
+use App\Http\Controllers\Agency\FlightBookingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -123,8 +127,10 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
         Route::prefix('sme-data')->name('sme-data.')->group(function () {
             Route::get('/', [SmeDataController::class, 'index'])->name('index');
+            Route::post('/', [SmeDataController::class, 'store'])->name('store');
             Route::post('/sync', [SmeDataController::class, 'sync'])->name('sync');
             Route::put('/{smeData}/update', [SmeDataController::class, 'update'])->name('update');
+            Route::delete('/{smeData}', [SmeDataController::class, 'destroy'])->name('destroy');
         });
     });
 
@@ -193,6 +199,34 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
             Route::get('/{id}', [VninToNibssController::class, 'show'])->name('show');
             Route::put('/{id}', [VninToNibssController::class, 'update'])->name('update');
             Route::post('/', [VninToNibssController::class, 'store'])->name('store');
+        });
+
+        // CAC Registration
+        Route::prefix('cac-registration')->name('cac.')->group(function () {
+            Route::get('/', [CACController::class, 'index'])->name('index');
+            Route::get('/{id}', [CACController::class, 'show'])->name('show');
+            Route::put('/{id}', [CACController::class, 'update'])->name('update');
+        });
+
+        // Visa Request
+        Route::prefix('visa-request')->name('visa.')->group(function () {
+            Route::get('/', [VisaRequestController::class, 'index'])->name('index');
+            Route::get('/{id}', [VisaRequestController::class, 'show'])->name('show');
+            Route::put('/{id}', [VisaRequestController::class, 'update'])->name('update');
+        });
+
+        // Hotel Booking
+        Route::prefix('hotel-booking')->name('hotel.')->group(function () {
+            Route::get('/', [HotelBookingController::class, 'index'])->name('index');
+            Route::get('/{id}', [HotelBookingController::class, 'show'])->name('show');
+            Route::put('/{id}', [HotelBookingController::class, 'update'])->name('update');
+        });
+
+        // Flight Booking
+        Route::prefix('flight-booking')->name('flight.')->group(function () {
+            Route::get('/', [FlightBookingController::class, 'index'])->name('index');
+            Route::get('/{id}', [FlightBookingController::class, 'show'])->name('show');
+            Route::put('/{id}', [FlightBookingController::class, 'update'])->name('update');
         });
     });
 });

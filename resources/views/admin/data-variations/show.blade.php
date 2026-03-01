@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Manage {{ $serviceName }} - Data Services</title>
+    <title>Bayajidda Global - Data Services</title>
 
     <div class="content">
         <!-- Page Header -->

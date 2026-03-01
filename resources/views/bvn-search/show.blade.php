@@ -1,5 +1,5 @@
 <x-app-layout>
-    <title>Safana Digital - Bvn search details</title>
+    <title>Bayajidda Global - Bvn search details</title>
 
     <div class="content">
         <div class="row mb-4">

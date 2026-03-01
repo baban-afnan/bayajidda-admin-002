@@ -101,4 +101,41 @@ class AgentService extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    /** Accessors */
+
+    public function getParsedDataAttribute()
+    {
+        $d = is_array($this->modification_data)
+            ? $this->modification_data
+            : json_decode($this->modification_data ?? '', true);
+        $d = is_array($d) ? $d : [];
+
+        $f = is_array($this->field)
+            ? $this->field
+            : json_decode($this->field ?? '', true);
+        if (is_array($f)) {
+            $d = array_merge($d, $f);
+        }
+
+        if (isset($d['uploads']) && is_array($d['uploads'])) {
+            $d = array_merge($d, $d['uploads']);
+        }
+
+        return $d;
+    }
+
+    public function getStatusColorAttribute()
+    {
+        return match($this->status) {
+            'pending' => 'warning',
+            'processing' => 'info',
+            'in-progress' => 'primary',
+            'resolved', 'successful' => 'success',
+            'rejected', 'failed' => 'danger',
+            'query' => 'warning',
+            'remark' => 'secondary',
+            default => 'light'
+        };
+    }
 }

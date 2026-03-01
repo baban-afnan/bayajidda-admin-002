@@ -1,5 +1,5 @@
 <!-- Header -->
-<div class="header">
+<div class="header header-primary">
     <div class="main-header">
         <!-- Header Left - Logo -->
         <div class="header-left">
@@ -279,7 +279,7 @@ function confirmLogout(event, formId) {
         text: "You will be logged out of your account.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#0d5c3e',
+        confirmButtonColor: '#002fba',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, logout!',
         cancelButtonText: 'Cancel'
