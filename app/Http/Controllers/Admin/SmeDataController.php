@@ -43,7 +43,7 @@ class SmeDataController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'data_id' => 'required|string|unique:sme_datas,data_id',
+            'data_id' => 'required|string',
             'network' => 'required|string',
             'plan_type' => 'required|string',
             'amount' => 'required|numeric|min:0',
@@ -59,33 +59,61 @@ class SmeDataController extends Controller
         return back()->with('success', 'SME Data Plan created successfully.');
     }
 
-    /**
-     * Sync SME data plans from external API.
-     */
     public function sync()
     {
         try {
-            $response = Http::get('https://api.arewasmart.com.ng/api/v1/sme-data/variations');
+            $services = [
+                'mtn_sme' => ['network' => 'MTN', 'plan_type' => 'SME'],
+                'mtn_cg_lite' => ['network' => 'MTN', 'plan_type' => 'CG LITE'],
+                'mtn_gifting' => ['network' => 'MTN', 'plan_type' => 'GIFTING'],
+                'mtncg' => ['network' => 'MTN', 'plan_type' => 'CG'],
+                'airtel_cg' => ['network' => 'AIRTEL', 'plan_type' => 'CG'],
+                'airtel_sme' => ['network' => 'AIRTEL', 'plan_type' => 'SME'],
+                'glo_data' => ['network' => 'GLO', 'plan_type' => 'DATA'],
+                'glo_sme' => ['network' => 'GLO', 'plan_type' => 'SME'],
+                'etisalat_data' => ['network' => '9MOBILE', 'plan_type' => 'DATA']
+            ];
 
-            if ($response->successful()) {
-                $data = $response->json();
-                
-                if (isset($data['status']) && $data['status'] === 'success' && isset($data['data'])) {
-                    foreach ($data['data'] as $plan) {
-                        SmeData::updateOrCreate(
-                            ['data_id' => $plan['data_id']],
-                            [
-                                'network' => $plan['network'],
-                                'plan_type' => $plan['plan_type'],
-                                'amount' => $plan['amount'],
-                                'size' => $plan['size'],
-                                'validity' => $plan['validity'],
+            $syncedCount = 0;
+            $firstSuccess = true;
+
+            foreach ($services as $serviceKey => $details) {
+                $response = Http::get('https://api.gsubz.com/api/plans', [
+                    'service' => $serviceKey
+                ]);
+
+                if ($response->successful()) {
+                    $data = $response->json();
+                    
+                    if (isset($data['plans']) && is_array($data['plans'])) {
+                        if ($firstSuccess) {
+                            SmeData::truncate(); // Drop all existing plans
+                            $firstSuccess = false;
+                        }
+
+                        foreach ($data['plans'] as $plan) {
+                            $displayName = $plan['displayName'] ?? '';
+                            $parts = explode('-', $displayName);
+                            $size = trim($parts[0] ?? $displayName);
+                            $validity = trim($parts[1] ?? '30 Days');
+
+                            SmeData::create([
+                                'data_id' => $plan['value'],
+                                'network' => $details['network'],
+                                'plan_type' => $details['plan_type'],
+                                'amount' => $plan['price'],
+                                'size' => $size,
+                                'validity' => $validity,
                                 'status' => true,
-                            ]
-                        );
+                            ]);
+                            $syncedCount++;
+                        }
                     }
-                    return back()->with('success', 'SME Data Plans synced successfully.');
                 }
+            }
+
+            if ($syncedCount > 0) {
+                return back()->with('success', "SME Data Plans synced successfully. Total: {$syncedCount} plans.");
             }
             
             return back()->with('error', 'Failed to fetch data from API.');
@@ -100,7 +128,7 @@ class SmeDataController extends Controller
     public function update(Request $request, SmeData $smeData)
     {
         $validated = $request->validate([
-            'data_id' => 'required|string|unique:sme_datas,data_id,' . $smeData->id,
+            'data_id' => 'required|string',
             'network' => 'required|string',
             'plan_type' => 'required|string',
             'amount' => 'required|numeric|min:0',

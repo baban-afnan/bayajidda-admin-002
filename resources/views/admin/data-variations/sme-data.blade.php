@@ -18,7 +18,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 text-center mt-2 mt-md-0 d-flex gap-2 justify-content-center">
+                <div class="col-md-6 text-center mt-2 mt-md-0 d-flex gap-2 justify-content-end align-items-center">
+                    <form action="{{ route('admin.sme-data.sync') }}" method="POST" id="syncForm" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-info shadow-sm text-white">
+                            <i class="ti ti-refresh me-1"></i>Sync Plans
+                        </button>
+                    </form>
                     <button type="button" class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#addPlanModal">
                         <i class="ti ti-plus me-1"></i>Add New Plan
                     </button>
