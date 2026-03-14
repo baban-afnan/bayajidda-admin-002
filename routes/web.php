@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\AdminWalletController;
 use App\Http\Controllers\Admin\DataVariationController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SmeDataController;
+use App\Http\Controllers\Admin\KiraniDataController;
+use App\Http\Controllers\Admin\SmileDataController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agency\BVNmodController;
 use App\Http\Controllers\Agency\BVNserviceController;
@@ -131,6 +133,22 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
             Route::post('/sync', [SmeDataController::class, 'sync'])->name('sync');
             Route::put('/{smeData}/update', [SmeDataController::class, 'update'])->name('update');
             Route::delete('/{smeData}', [SmeDataController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('kirani-data')->name('kirani-data.')->group(function () {
+            Route::get('/', [KiraniDataController::class, 'index'])->name('index');
+            Route::post('/', [KiraniDataController::class, 'store'])->name('store');
+            Route::post('/sync', [KiraniDataController::class, 'sync'])->name('sync');
+            Route::put('/{kiraniPlan}/update', [KiraniDataController::class, 'update'])->name('update');
+            Route::delete('/{kiraniPlan}', [KiraniDataController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('smile-data')->name('smile-data.')->group(function () {
+            Route::get('/', [SmileDataController::class, 'index'])->name('index');
+            Route::post('/', [SmileDataController::class, 'store'])->name('store');
+            Route::post('/sync', [SmileDataController::class, 'sync'])->name('sync');
+            Route::put('/{smilePlan}/update', [SmileDataController::class, 'update'])->name('update');
+            Route::delete('/{smilePlan}', [SmileDataController::class, 'destroy'])->name('destroy');
         });
     });
 

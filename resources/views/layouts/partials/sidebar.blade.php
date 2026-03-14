@@ -47,6 +47,8 @@
                         </li>
                         <li><a href="{{ route('admin.data-variations.index') }}" class="{{ request()->routeIs('admin.data-variations.*') ? 'active' : '' }}">Data Services</a></li>
                         <li><a href="{{ route('admin.sme-data.index') }}" class="{{ request()->routeIs('admin.sme-data.index') ? 'active' : '' }}">SME Data</a></li>
+                        <li><a href="{{ route('admin.kirani-data.index') }}" class="{{ request()->routeIs('admin.kirani-data.index') ? 'active' : '' }}">Kirani Data</a></li>
+                        <li><a href="{{ route('admin.smile-data.index') }}" class="{{ request()->routeIs('admin.smile-data.index') ? 'active' : '' }}">Smile Data</a></li>
                     </ul>
                 </li>
 
