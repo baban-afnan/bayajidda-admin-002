@@ -109,7 +109,7 @@
                         ['url' => route('cac.index'), 'icon' => 'ti-briefcase', 'label' => 'CAC Reg', 'color' => '#0984e3'],
                         ['url' => route('crm.index'), 'icon' => 'ti-headset', 'label' => 'CRM', 'color' => '#00cec9'],
                         ['url' => route('validation.index'), 'icon' => 'ti-shield-check', 'label' => 'Validation', 'color' => '#e17055'],
-                        ['url' => route('wallet'), 'icon' => 'ti-wallet', 'label' => 'Wallet', 'color' => '#6c5ce7'],
+                        ['url' => route('esim'), 'icon' => 'ti-wallet', 'label' => 'Wallet', 'color' => '#6c5ce7'],
                     ] as $svc)
                     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                         <a href="{{ $svc['url'] }}" class="service-item text-center text-decoration-none d-block p-3 rounded-4 hover-lift">

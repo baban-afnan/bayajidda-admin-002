@@ -24,6 +24,7 @@ use App\Http\Controllers\Agency\ValidationController;
 use App\Http\Controllers\Agency\VninToNibssController;
 use App\Http\Controllers\Agency\CACController;
 use App\Http\Controllers\Agency\VisaRequestController;
+use App\Http\Controllers\Agency\EsimRequestController;
 use App\Http\Controllers\Agency\HotelBookingController;
 use App\Http\Controllers\Agency\FlightBookingController;
 use Illuminate\Support\Facades\Route;
@@ -231,6 +232,13 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
             Route::get('/', [VisaRequestController::class, 'index'])->name('index');
             Route::get('/{id}', [VisaRequestController::class, 'show'])->name('show');
             Route::put('/{id}', [VisaRequestController::class, 'update'])->name('update');
+        });
+
+        Route::get('/esim', [EsimRequestController::class, 'index'])->name('esim');
+        Route::prefix('esim-request')->name('esim.')->group(function () {
+            Route::get('/', [EsimRequestController::class, 'index'])->name('index');
+            Route::get('/{id}', [EsimRequestController::class, 'show'])->name('show');
+            Route::put('/{id}', [EsimRequestController::class, 'update'])->name('update');
         });
 
         // Hotel Booking

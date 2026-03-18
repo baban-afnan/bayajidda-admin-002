@@ -104,6 +104,7 @@
                     </a>
                     <ul>
                         <li><a href="{{ route('visa.index') }}" class="{{ request()->routeIs('visa.*') ? 'active' : '' }}">Visa Request</a></li>
+                        <li><a href="{{ route('esim.index') }}" class="{{ request()->routeIs('esim.*') ? 'active' : '' }}">eSIM Request</a></li>
                         <li><a href="{{ route('hotel.index') }}" class="{{ request()->routeIs('hotel.*') ? 'active' : '' }}">Hotel Booking</a></li>
                         <li><a href="{{ route('flight.index') }}" class="{{ request()->routeIs('flight.*') ? 'active' : '' }}">Flight Booking</a></li>
                         <li><a href="{{ route('cac.index') }}" class="{{ request()->routeIs('cac.*') ? 'active' : '' }}">CAC Registration</a></li>
