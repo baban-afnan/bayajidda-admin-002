@@ -21,7 +21,7 @@
                 <div class="col-md-6 text-center mt-2 mt-md-0 d-flex gap-2 justify-content-end align-items-center">
                     <form action="{{ route('admin.sme-data.sync') }}" method="POST" id="syncForm" class="m-0">
                         @csrf
-                        <button type="submit" class="btn btn-info shadow-sm text-white">
+                        <button type="submit" class="btn btn-danger shadow-sm text-white">
                             <i class="ti ti-refresh me-1"></i>Sync Plans
                         </button>
                     </form>
@@ -119,7 +119,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if($variation->status)
+                                        @if($variation->status === 'active')
                                             <span class="badge bg-soft-success text-success border-0 rounded-pill px-3">
                                                 <i class="ti ti-circle-check-filled me-1"></i>Active
                                             </span>
@@ -225,7 +225,7 @@
                         </div>
                         <div class="mb-0">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status" id="addStatus" checked value="1">
+                                <input class="form-check-input" type="checkbox" name="status" id="addStatus" checked>
                                 <label class="form-check-label" for="addStatus">Active Status</label>
                             </div>
                         </div>
@@ -288,7 +288,7 @@
                         </div>
                         <div class="mb-0">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status" id="edit_status" value="1">
+                                <input class="form-check-input" type="checkbox" name="status" id="edit_status">
                                 <label class="form-check-label" for="edit_status">Active Status</label>
                             </div>
                         </div>
@@ -348,7 +348,7 @@
                     document.getElementById('edit_size').value = this.dataset.size;
                     document.getElementById('edit_validity').value = this.dataset.validity;
                     document.getElementById('edit_amount').value = this.dataset.amount;
-                    document.getElementById('edit_status').checked = this.dataset.status == 1;
+                    document.getElementById('edit_status').checked = this.dataset.status === 'active';
                 });
             });
 

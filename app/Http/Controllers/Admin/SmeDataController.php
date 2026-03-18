@@ -49,10 +49,10 @@ class SmeDataController extends Controller
             'amount' => 'required|numeric|min:0',
             'size' => 'required|string',
             'validity' => 'required|string',
-            'status' => 'boolean',
+            'status' => 'nullable|string',
         ]);
 
-        $validated['status'] = $request->has('status');
+        $validated['status'] = $request->has('status') ? 'active' : 'inactive';
 
         SmeData::create($validated);
 
@@ -104,7 +104,7 @@ class SmeDataController extends Controller
                                 'amount' => $plan['price'],
                                 'size' => $size,
                                 'validity' => $validity,
-                                'status' => true,
+                                'status' => 'active',
                             ]);
                             $syncedCount++;
                         }
@@ -134,10 +134,10 @@ class SmeDataController extends Controller
             'amount' => 'required|numeric|min:0',
             'size' => 'required|string',
             'validity' => 'required|string',
-            'status' => 'boolean',
+            'status' => 'nullable|string',
         ]);
 
-        $validated['status'] = $request->has('status');
+        $validated['status'] = $request->has('status') ? 'active' : 'inactive';
 
         $smeData->update($validated);
 
