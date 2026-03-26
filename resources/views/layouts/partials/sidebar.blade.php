@@ -103,6 +103,8 @@
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
+                        <li><a href="{{ route('admin.cable-subscription.index') }}" class="{{ request()->routeIs('admin.cable-subscription.index') ? 'active' : '' }}">Cable Subscription</a></li>
+                        <li><a href="{{ route('admin.educational-pin.index') }}" class="{{ request()->routeIs('admin.educational-pin.index') ? 'active' : '' }}">Educational Pins</a></li>
                         <li><a href="{{ route('visa.index') }}" class="{{ request()->routeIs('visa.*') ? 'active' : '' }}">Visa Request</a></li>
                         <li><a href="{{ route('esim.index') }}" class="{{ request()->routeIs('esim.*') ? 'active' : '' }}">eSIM Request</a></li>
                         <li><a href="{{ route('hotel.index') }}" class="{{ request()->routeIs('hotel.*') ? 'active' : '' }}">Hotel Booking</a></li>

@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SmeDataController;
 use App\Http\Controllers\Admin\KiraniDataController;
 use App\Http\Controllers\Admin\SmileDataController;
+use App\Http\Controllers\Admin\CableSubscriptionController;
+use App\Http\Controllers\Admin\EducationalPinController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Agency\BVNmodController;
 use App\Http\Controllers\Agency\BVNserviceController;
@@ -150,6 +152,22 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
             Route::post('/sync', [SmileDataController::class, 'sync'])->name('sync');
             Route::put('/{smilePlan}/update', [SmileDataController::class, 'update'])->name('update');
             Route::delete('/{smilePlan}', [SmileDataController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('cable-subscription')->name('cable-subscription.')->group(function () {
+            Route::get('/', [CableSubscriptionController::class, 'index'])->name('index');
+            Route::post('/', [CableSubscriptionController::class, 'store'])->name('store');
+            Route::put('/{cableSubscription}/update', [CableSubscriptionController::class, 'update'])->name('update');
+            Route::patch('/{cableSubscription}/status', [CableSubscriptionController::class, 'updateStatus'])->name('update-status');
+            Route::delete('/{cableSubscription}', [CableSubscriptionController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('educational-pin')->name('educational-pin.')->group(function () {
+            Route::get('/', [EducationalPinController::class, 'index'])->name('index');
+            Route::post('/', [EducationalPinController::class, 'store'])->name('store');
+            Route::put('/{educationalPin}/update', [EducationalPinController::class, 'update'])->name('update');
+            Route::patch('/{educationalPin}/status', [EducationalPinController::class, 'updateStatus'])->name('update-status');
+            Route::delete('/{educationalPin}', [EducationalPinController::class, 'destroy'])->name('destroy');
         });
     });
 

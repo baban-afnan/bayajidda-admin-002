@@ -119,7 +119,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if($variation->status === 'active')
+                                        @if($variation->status === 'enabled')
                                             <span class="badge bg-soft-success text-success border-0 rounded-pill px-3">
                                                 <i class="ti ti-circle-check-filled me-1"></i>Active
                                             </span>
@@ -348,7 +348,7 @@
                     document.getElementById('edit_size').value = this.dataset.size;
                     document.getElementById('edit_validity').value = this.dataset.validity;
                     document.getElementById('edit_amount').value = this.dataset.amount;
-                    document.getElementById('edit_status').checked = this.dataset.status === 'active';
+                    document.getElementById('edit_status').checked = this.dataset.status === 'enabled';
                 });
             });
 
